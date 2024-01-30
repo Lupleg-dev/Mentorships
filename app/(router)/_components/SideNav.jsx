@@ -23,11 +23,14 @@ function SideNav() {
   return (
     <div className="p-5 bg-white shadow-sm border h-screen ">
       <Image src="/logo.svg" alt="logo" width={170} height={80} />
-      <div className="">
+      
+      <hr className="mt-7"></hr>
+      {/* Menu list */}
+      <div className="mt-8">
         {menu.map((item, index) => (
           <div
-            className="
-            flex gap-3 mt-1 
+            className="group
+            flex gap-3 mt-2
             p-3 text-[20px] 
             items-center 
           text-gray-500

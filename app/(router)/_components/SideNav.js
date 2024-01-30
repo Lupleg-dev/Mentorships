@@ -31,7 +31,13 @@ function SideNav() {
             p-3 text-[20px] 
             items-center 
           text-gray-500
-            cursor-pointer"
+            cursor-pointer
+            hover:bg-primary
+            hover:text-white
+            rounded-md
+            transition-all ease-in-out duration-200
+            "
+            
           >
             <item.icon size={24} />
             <h2>{item.name}</h2>

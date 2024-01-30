@@ -30,7 +30,8 @@ function SideNav() {
             flex gap-3 mt-1 
             p-3 text-[20px] 
             items-center 
-          text-gray-500"
+          text-gray-500
+            cursor-pointer"
           >
             <item.icon size={24} />
             <h2>{item.name}</h2>

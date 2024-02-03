@@ -4,7 +4,6 @@ Welcome to the Lupleg Portal repository! This repository contains the source cod
 
 ## Table of Contents
 
-- [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)

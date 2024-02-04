@@ -10,7 +10,6 @@ Welcome to the Lupleg Portal repository! This repository contains the source cod
 - [Contributing](#contributing)
 - [License](#license)
 
-## Introduction
 
 The Lupleg Portal is a web application that provides a centralized platform for managing various online services offered by Lupleg. It allows users to perform tasks such as account management, service subscriptions, and accessing support resources.
 

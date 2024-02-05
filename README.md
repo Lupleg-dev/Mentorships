@@ -27,7 +27,7 @@ To install and run the Lupleg Portal locally, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/lupleg/lupleg-portal.git`
 2. Install the dependencies: `npm install`
-3. Configure the environment variables: Create a `.env` file and set the required variables.
+3. Configure the environment variables(if any exists): Create a `.env` file and set the required variables.
 4. Start the application: `npm start`
 
 ## Usage

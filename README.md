@@ -1,6 +1,6 @@
 # Lupleg Portal
 
-Welcome to the Lupleg Portal repository! This repository contains the source code and documentation for the Lupleg Portal, a web application for managing Lupleg's online services.
+Welcome to the Lupleg Portal! This repository contains the source code and documentation for the Lupleg Portal, a web application for managing Lupleg's online services.
 
 ## Table of Contents
 

@@ -24,9 +24,17 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [ pending, setPending ] = useState(false);
+
+
 
   const onProviderSignIn = (value: "github" | "google") => {
-    signIn(value);
+    setPending(true);
+
+    signIn(value)
+    .finally(() => {
+      setPending(pending);
+    })
   };
 
   return (
@@ -41,7 +49,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
       <CardContent className="space-y-5 px-0 pb-0">
         <form className="space-y-2.5 ">
           <Input
-            disabled={false}
+            disabled={pending}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
@@ -49,14 +57,14 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             required
           />
           <Input
-            disabled={false}
+            disabled={pending}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
             required
           />
-          <Button type="submit" className="w-full" size="lg" disabled={false}>
+          <Button type="submit" className="w-full" size="lg" disabled={pending}>
             Continue
           </Button>
         </form>
@@ -68,7 +76,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             variant="outline"
             className="w-full relative"
             size="lg"
-            disabled={false}
+            disabled={pending}
           >
             <FcGoogle className="size-5 absolute left-2.5 top-3" />
             Continue with Google
@@ -79,7 +87,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             variant="outline"
             className="w-full relative"
             size="lg"
-            disabled={false}
+            disabled={pending}
           >
             <FaGithub className="size-5 absolute left-2.5 top-3" />
             Continue with Github

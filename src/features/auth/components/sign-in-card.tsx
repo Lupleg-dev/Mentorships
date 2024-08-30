@@ -25,7 +25,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleProviderSignIn = (value: "github" | "google") => {
+  const onProviderSignIn = (value: "github" | "google") => {
     signIn(value);
   };
 
@@ -64,7 +64,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
         <div className="flex flex-col gap-y-2.5">
           <Button
             type="button"
-            onClick={() => {}}
+            onClick={() => onProviderSignIn("google")}
             variant="outline"
             className="w-full relative"
             size="lg"
@@ -75,7 +75,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
           </Button>
           <Button
             type="button"
-            onClick={() => handleProviderSignIn("github")}
+            onClick={() => onProviderSignIn("github")}
             variant="outline"
             className="w-full relative"
             size="lg"

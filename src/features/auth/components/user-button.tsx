@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "../hooks/use-current-user";
 import { Loader, LogOut } from "lucide-react";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 export const UserButton = () => {
+  const {signOut} = useAuthActions()
   const { data, isLoading } = useCurrentUser();
 
   if (isLoading) {
@@ -31,7 +33,7 @@ export const UserButton = () => {
       <DropdownMenuTrigger className="outline-none relative">
         <Avatar className="size-10 hover:opacity-75 transition">
           <AvatarImage alt={name} src={image} />
-          <AvatarFallback>{avatarFallback}</AvatarFallback>
+          <AvatarFallback className="bg-sky-500 text-white">{avatarFallback}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" side="right" className="w-60">
@@ -39,8 +41,10 @@ export const UserButton = () => {
         <DropdownMenuItem>{name}</DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
-        {/* <LogOut className="size-4 mr-2"/> */}
-        <DropdownMenuItem>Sign out</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => signOut()} className="h-10">
+          <LogOut className="size-4 mr-2" />
+          Sign out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

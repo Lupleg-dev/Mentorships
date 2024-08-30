@@ -84,7 +84,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             disabled={pending}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            // type="password"
+            type="password"
             placeholder="Password"
             required
           />
@@ -92,7 +92,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
             disabled={pending}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            // type="password"
+            type="password"
             placeholder="Confirm password"
             required
           />

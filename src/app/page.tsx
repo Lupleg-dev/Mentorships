@@ -16,7 +16,7 @@ export default function Home() {
     } else {
       console.log("Open create workspace modal");
     }
-  }, []);
+  }, [workspaceId, isLoading]);
 
   return (
     <div className="h-screen">

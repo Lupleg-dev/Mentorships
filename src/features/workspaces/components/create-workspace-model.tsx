@@ -9,13 +9,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateWorkspaceModal } from "../store/use-create-workspace-modal";
+import { useCreateWorkspace } from "../api/use-create-workspace";
 
 export const CreateWorkspaceModal = () => {
   const [open, setOpen] = useCreateWorkspaceModal();
+
+  const { mutate } = useCreateWorkspace();
+
+
   const handleClose = () => {
     setOpen(false);
     // TODO: reset form
   };
+
+  const handleSubmit = () => {
+     mutate({
+      name: "Lupleg Community",
+    })
+  }
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>

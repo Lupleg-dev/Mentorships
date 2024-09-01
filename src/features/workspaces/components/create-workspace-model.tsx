@@ -22,9 +22,13 @@ export const CreateWorkspaceModal = () => {
     // TODO: reset form
   };
 
-  const handleSubmit = () => {
-     mutate({
+  const handleSubmit = async() => {
+     const data = await mutate({
       name: "Lupleg Community",
+    }, {
+      onSuccess(data) {
+        
+      },
     })
   }
 

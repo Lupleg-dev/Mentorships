@@ -2,13 +2,14 @@ import { useMutation } from "convex/react";
 import { useCallback } from "react";
 
 import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 type RequestType = { name: string };
-type ResponseType = any;
+type ResponseType = Id<"workspaces">;
 
 type Options = {
-  onSuccess?: () => void;
-  onError?: () => void;
+  onSuccess?: (data: ResponseType ) => void;
+  onError?: (error: Error) => void;
   onSettled?: () => void;
 };
 
@@ -19,9 +20,10 @@ export const useCreateWorkspace = () => {
     async (values: any, options?: Options) => {
       try {
         const response = await mutation(values);
-        options?.onSuccess?.();
-      } catch {
-        options?.onError?.();
+        options?.onSuccess?.(response);
+        return response;
+      } catch(error) {
+        options?.onError?.(error as Error);
       } finally {
         options?.onSettled?.();
       }

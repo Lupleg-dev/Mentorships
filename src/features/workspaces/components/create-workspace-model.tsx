@@ -23,13 +23,20 @@ export const CreateWorkspaceModal = () => {
   };
 
   const handleSubmit = async() => {
+    try {
      const data = await mutate({
       name: "Lupleg Community",
     }, {
       onSuccess(data) {
         
       },
+      onError(error) {
+        
+      },
     })
+    } catch(error) {
+
+    }
   }
 
   return (

@@ -11,31 +11,32 @@ import { Input } from "@/components/ui/input";
 import { useCreateWorkspaceModal } from "../store/use-create-workspace-modal";
 import { useCreateWorkspace } from "../api/use-create-workspace";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const CreateWorkspaceModal = () => {
+  const router = useRouter();
   const [open, setOpen] = useCreateWorkspaceModal();
   const [name, setName] = useState("");
 
-
-
   const { mutate, isPending } = useCreateWorkspace();
-
 
   const handleClose = () => {
     setOpen(false);
-    // TODO: reset form
+    setName("");
   };
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    mutate({name}, {
-      onSuccess: (data) => {
-        console.log(data);
-      }
 
-    })
-  }
+    mutate(
+      { name },
+      {
+        onSuccess(id) {
+          router.push(`/workspace/${id}`);
+        },
+      }
+    );
+  };
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -44,7 +45,7 @@ export const CreateWorkspaceModal = () => {
           <DialogTitle>Add a workspace</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
+          <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={isPending}
@@ -52,17 +53,12 @@ export const CreateWorkspaceModal = () => {
             autoFocus
             minLength={3}
             placeholder="Workspace name e.g. Lupleg Community"
-
-            />
-            <div className="flex justify-end">
-                <Button 
-                disabled={isPending}
-                type="submit">
-                    Create
-                    </Button>
-
-            </div>
-
+          />
+          <div className="flex justify-end">
+            <Button disabled={isPending} type="submit">
+              Create
+            </Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

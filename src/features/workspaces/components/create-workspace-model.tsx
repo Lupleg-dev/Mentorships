@@ -10,11 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateWorkspaceModal } from "../store/use-create-workspace-modal";
 import { useCreateWorkspace } from "../api/use-create-workspace";
+import { useState } from "react";
 
 export const CreateWorkspaceModal = () => {
   const [open, setOpen] = useCreateWorkspaceModal();
+  const [name, setName] = useState("");
 
-  const { mutate } = useCreateWorkspace();
+
+
+  const { mutate, isPending } = useCreateWorkspace();
 
 
   const handleClose = () => {
@@ -22,21 +26,15 @@ export const CreateWorkspaceModal = () => {
     // TODO: reset form
   };
 
-  const handleSubmit = async() => {
-    try {
-     const data = await mutate({
-      name: "Lupleg Community",
-    }, {
-      onSuccess(data) {
-        
-      },
-      onError(error) {
-        
-      },
-    })
-    } catch(error) {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    mutate({name}, {
+      onSuccess: (data) => {
+        console.log(data);
+      }
 
-    }
+    })
   }
 
   return (
@@ -45,10 +43,11 @@ export const CreateWorkspaceModal = () => {
         <DialogHeader>
           <DialogTitle>Add a workspace</DialogTitle>
         </DialogHeader>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
             <Input
-            value=""
-            disabled={false}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={isPending}
             required
             autoFocus
             minLength={3}
@@ -57,7 +56,7 @@ export const CreateWorkspaceModal = () => {
             />
             <div className="flex justify-end">
                 <Button 
-                disabled={false}
+                disabled={isPending}
                 type="submit">
                     Create
                     </Button>

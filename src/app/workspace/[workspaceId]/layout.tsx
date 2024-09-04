@@ -1,4 +1,5 @@
 "use client";
+import { Sidebar } from "./sidebar";
 import { Toolbar } from "./toolbar";
 
 interface WorkspaceLayoutProps {
@@ -6,9 +7,15 @@ interface WorkspaceLayoutProps {
 }
 
 const WorkspaceLayout = ({ children }: WorkspaceLayoutProps) => {
-  return <div className="h-full ">
-    <Toolbar/>
-     {children}</div>;
+  return (
+    <div className="h-full ">
+      <Toolbar />
+
+      <div className="flex h-[calc(100vh-40px)]">
+        <Sidebar/>
+        {children}</div>
+    </div>
+  );
 };
 
 export default WorkspaceLayout;

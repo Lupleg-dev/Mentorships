@@ -1,6 +1,7 @@
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import { useCreateWorkspaceModal } from "@/features/workspaces/store/use-create-
 import { Loader } from "lucide-react";
 
 export const WorkspaceSwitcher = () => {
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
   const [_open, setOpen] = useCreateWorkspaceModal();
 
@@ -39,11 +41,24 @@ export const WorkspaceSwitcher = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" align="start" className="w-64">
-        <DropdownMenuItem className="cursor-pointer flex-col items-start justify-start capitalize ">
+        <DropdownMenuItem
+          onClick={() => router.push(`/workspace/${workspaceId}`)}
+          className="cursor-pointer flex-col items-start justify-start capitalize "
+        >
           {workspace?.name}
           <span className="text-xs text-muted-foreground">
             Activate Workspace
           </span>
+        </DropdownMenuItem>
+        {filteredWorkspaces?.map((workspace) => (
+          <DropdownMenuItem
+            className="cursor-pointer capitalize"
+            key={workspace._id}
+            onClick={() => router.push(`/workspace/${workspace._id}`)}
+          ></DropdownMenuItem>
+        ))}
+        <DropdownMenuItem>
+          <div className="size-9 relative overflow-hidden bg-[#F2F2F2] text-slate-800 font-semibold text-xl rounded-md flex items-center justify-center  "></div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

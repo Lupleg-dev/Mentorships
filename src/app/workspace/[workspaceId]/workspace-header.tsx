@@ -12,9 +12,13 @@ import { ChevronDown } from "lucide-react";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;
+  isAdmin: boolean;
 }
 
-export const WorkspaceHeader = ({ workspace }: WorkspaceHeaderProps) => {
+export const WorkspaceHeader = ({
+  workspace,
+  isAdmin,
+}: WorkspaceHeaderProps) => {
   return (
     <div className="flex items-center justify-between px-4 h-[49px] gap-0.5 ">
       <DropdownMenu>
@@ -39,13 +43,25 @@ export const WorkspaceHeader = ({ workspace }: WorkspaceHeaderProps) => {
               <p className="text-xs text-muted-foreground">Active workspace</p>
             </div>
           </DropdownMenuItem>
-            <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="cursor-pointer py-2"
-            onClick={() => {}}
-          >
-            Invite people to {workspace.name}
-          </DropdownMenuItem>
+
+          {isAdmin && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="cursor-pointer py-2"
+                onClick={() => {}}
+              >
+                Invite people to {workspace.name}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="cursor-pointer py-2"
+                onClick={() => {}}
+              >
+                Preferences
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

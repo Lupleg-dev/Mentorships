@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,9 +22,13 @@ export const WorkspaceHeader = ({
   workspace,
   isAdmin,
 }: WorkspaceHeaderProps) => {
+  const [preferencesOpen, setPreferencesOpen] = useState(false);
   return (
     <>
-    <PreferencesModel />
+    <PreferencesModel 
+    open={preferencesOpen} 
+    setOpen={setPreferencesOpen} 
+    intialValue={workspace.name} />
       <div className="flex items-center justify-between px-4 h-[49px] gap-0.5 ">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -62,7 +67,7 @@ export const WorkspaceHeader = ({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer py-2"
-                  onClick={() => {}}
+                  onClick={() => setPreferencesOpen(true)}
                 >
                   Preferences
                 </DropdownMenuItem>

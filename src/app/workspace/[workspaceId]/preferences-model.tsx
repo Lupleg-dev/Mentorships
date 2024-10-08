@@ -17,20 +17,25 @@ interface PreferencesModelProps {
 }
 
 export const PreferencesModel = ({
-    open,
-    setOpen,
-    intialValue,
+  open,
+  setOpen,
+  intialValue,
 }: PreferencesModelProps) => {
-    const [value, setValue] = useState(intialValue);
+  const [value, setValue] = useState(intialValue);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-            <DialogHeader>
-                <DialogTitle>
-                    {value}
-                </DialogTitle>
-            </DialogHeader>
-        </DialogContent>
+      <DialogContent className="p-0 bg-gray-50 overflow-hidden">
+        <DialogHeader className="p-4 border-b bg-white">
+          <DialogTitle>{value}</DialogTitle>
+        </DialogHeader>
+        <div className="px-4 pb-4 flex flex-col gap-y-2">
+          <div className="px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold">Workspace name</p>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
     </Dialog>
-  )
+  );
 };

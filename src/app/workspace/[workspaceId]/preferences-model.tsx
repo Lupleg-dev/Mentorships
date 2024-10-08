@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/dialog";
 import { TrashIcon } from "lucide-react";
 
+import  {  useUpdateWorkspace}  from "@/features/workspaces/api/use-update-workspace";
+
+
 interface PreferencesModelProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -23,6 +26,8 @@ export const PreferencesModel = ({
   intialValue,
 }: PreferencesModelProps) => {
   const [value, setValue] = useState(intialValue);
+  const { mutate: updateWorkspace, isPending: isUpdatingWorkspace } = useUpdateWorkspace();
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="p-0 bg-gray-50 overflow-hidden">

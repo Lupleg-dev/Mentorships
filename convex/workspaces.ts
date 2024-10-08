@@ -115,8 +115,10 @@ export const update = mutation({
     if (!member || member.role !== "admin") {
       throw new Error("Unauthorized");
     }
-    await ctx.db.patch(args.id, {
+     await ctx.db.patch(args.id, {
       name: args.name,
     });
+
+    return args.id;
   },
 });

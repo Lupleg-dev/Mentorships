@@ -12,7 +12,7 @@ import {
 import { TrashIcon } from "lucide-react";
 
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
-import { useRemoveWorkspace } from "@/features/workspaces/api/use-remove-workspace copy";
+import { useRemoveWorkspace } from "@/features/workspaces/api/use-remove-workspace";
 import { Input } from "@/components/ui/input";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";

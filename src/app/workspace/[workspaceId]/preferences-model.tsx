@@ -18,6 +18,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface PreferencesModelProps {
   open: boolean;
@@ -31,12 +32,29 @@ export const PreferencesModel = ({
   intialValue,
 }: PreferencesModelProps) => {
   const workspaceId = useWorkspaceId();
+  const router = useRouter();
   const [value, setValue] = useState(intialValue);
   const [editOpen, setEditOpen] = useState(false);
   const { mutate: updateWorkspace, isPending: isUpdatingWorkspace } =
     useUpdateWorkspace();
-  const { mutate: RemoveWorkspace, isPending: isRemovingWorkspace } =
+  const { mutate: removeWorkspace, isPending: isRemovingWorkspace } =
     useRemoveWorkspace();
+
+  const handleRemove = () => {
+    removeWorkspace(
+      {
+        id: workspaceId,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Workspace removed successfully");
+        },
+        onError: () => {
+          toast.error("Failed to remove workspace");
+        },
+      }
+    );
+  };
 
   const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,8 +123,8 @@ export const PreferencesModel = ({
             </DialogContent>
           </Dialog>
           <button
-            disabled={false}
-            onClick={() => {}}
+            disabled={isRemovingWorkspace}
+            onClick={handleRemove}
             className="flex  items-center gap-x-2 px-5 py-4 bg-white rounded-lg border cursor-pointer hover:bg-gray-50 text-rose-600"
           >
             <TrashIcon className="size-4" />

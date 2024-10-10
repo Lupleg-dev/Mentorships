@@ -23,5 +23,11 @@ export const useConfirm = (title: string, message: string): [any, any] => {
   const handleClose = () => {
     setPromise(null);
   };
+
+  const handleCancel = () => {
+    promise?.resolve(false)
+    handleClose()
+    
+  }
   return ["", ""];
 };

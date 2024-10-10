@@ -34,7 +34,7 @@ export const PreferencesModel = ({
 }: PreferencesModelProps) => {
   const workspaceId = useWorkspaceId();
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure",
+    "Are you sure?",
     "This action is irreversible"
   );
   const router = useRouter();

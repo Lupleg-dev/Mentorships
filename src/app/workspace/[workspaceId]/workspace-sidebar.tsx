@@ -70,6 +70,7 @@ export const WorkspaceSidebar = () => {
           />
         ))}
       </WorkspaceSection>
+      {members?.map((item) => <div key={item.user._id}>{item.user.name}</div>)}
     </div>
   );
 };

@@ -8,9 +8,7 @@ const populateUser = (ctx: QueryCtx, id: Id<"users">) => {
 };
 
 export const get = query({
-  args: {
-    workspaceId: v.id("workspaces"),
-  },
+  args: { workspaceId: v.id("workspaces") },
   handler: async (ctx, args) => {
     const userId = await auth.getUserId(ctx);
 
@@ -18,14 +16,15 @@ export const get = query({
       return [];
     }
 
-    const members = await ctx.db
+    const member = await ctx.db
       .query("members")
       .withIndex("by_workspace_id_user_id", (q) =>
         q.eq("workspaceId", args.workspaceId).eq("userId", userId)
       )
+
       .unique();
 
-    if (!members) {
+    if (!member) {
       return [];
     }
 
@@ -42,10 +41,7 @@ export const get = query({
       const user = await populateUser(ctx, member.userId);
 
       if (user) {
-        members.push({
-          ...member,
-          user,
-        });
+        members.push({ ...member, user });
       }
     }
 

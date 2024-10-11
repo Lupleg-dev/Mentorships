@@ -13,6 +13,7 @@ import { WorkspaceHeader } from "./workspace-header";
 import { SidebarItem } from "./sidebar-item";
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { WorkspaceSection } from "./workspace-section";
+import { useGetMembers } from "@/features/members/api/use-get-members";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -25,6 +26,10 @@ export const WorkspaceSidebar = () => {
   });
 
   const { data: channels, isLoading: channelsLoading } = useGetChannels({
+    workspaceId,
+  });
+
+  const { data: members, isLoading: membersLoading } = useGetMembers({
     workspaceId,
   });
 

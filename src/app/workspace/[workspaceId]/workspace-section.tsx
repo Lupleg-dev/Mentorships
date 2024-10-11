@@ -2,6 +2,7 @@ import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { FaCaretDown } from "react-icons/fa";
+import { useToggle } from "react-use"
 
 interface WorkspaceSectionProps {
   children: React.ReactNode;
@@ -16,10 +17,13 @@ export const WorkspaceSection = ({
   hint,
   onNew,
 }: WorkspaceSectionProps) => {
+    const [on, toggle] = useToggle(true)
+
   return (
     <div className="flex flex-col mt-3 px-2">
       <div className="flex items-center px-3.5 group">
         <Button
+            onClick={toggle}
           variant="transparent"
           className="p-0.5 text-sm text-[#f9edffcc] shrink-0 size-6"
         >
@@ -45,7 +49,7 @@ export const WorkspaceSection = ({
           </Hint>
         )}
       </div>
-      {children}
+      {on && children}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import {
 import { WorkspaceHeader } from "./workspace-header";
 import { SidebarItem } from "./sidebar-item";
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
+import { WorkspaceSection } from "./workspace-section";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -23,7 +24,9 @@ export const WorkspaceSidebar = () => {
     id: workspaceId,
   });
 
-  const { data: channels, isLoading: channelsLoading  } = useGetChannels({ workspaceId });
+  const { data: channels, isLoading: channelsLoading } = useGetChannels({
+    workspaceId,
+  });
 
   if (memberLoading || workspaceLoading) {
     return (
@@ -51,15 +54,20 @@ export const WorkspaceSidebar = () => {
       <div className="flex flex-col px-2 mt-3">
         <SidebarItem label="Threads" icon={MessageSquareText} id="threads" />
         <SidebarItem label="Drafts & Sent" icon={SendHorizonal} id="drafts" />
-        {channels?.map((item) => (
-          <SidebarItem
-            key={item._id}
-            label={item.name}
-            id={item._id}
-            icon={HashIcon}
-          />
-        ))}
-
+        <WorkspaceSection
+        label="Channels"
+        hint="New channel"
+        onNew={() => {}}
+        >
+          {channels?.map((item) => (
+            <SidebarItem
+              key={item._id}
+              label={item.name}
+              id={item._id}
+              icon={HashIcon}
+            />
+          ))}
+        </WorkspaceSection>
       </div>
     </div>
   );

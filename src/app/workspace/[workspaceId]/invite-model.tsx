@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useNewJoinCode } from "@/features/workspaces/api/use-new-join-code";
+import { useConfirm } from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { CopyIcon, RefreshCcw } from "lucide-react";
 import { toast } from "sonner";
@@ -28,8 +29,18 @@ export const InviteModel = ({
 }: InviteModelProps) => {
   const workspaceId = useWorkspaceId();
   const { mutate, isPending } = useNewJoinCode();
+  const [ConfirmDialog, confirm ] = useConfirm(
+    "Are you sure?",
+    "This will deactivate the current invite code and generate a new one."
+  );
 
-  const handleNewCode = () => {
+  const handleNewCode = async () => {
+    const ok = await confirm();
+
+    if (!ok) {
+      return;
+    }   
+    
     mutate(
       { workspaceId },
       {
@@ -52,6 +63,8 @@ export const InviteModel = ({
   };
 
   return (
+    <>
+    <ConfirmDialog/>
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
@@ -70,7 +83,7 @@ export const InviteModel = ({
           </Button>
         </div>
         <div className="flex items-center justify-between w-full">
-          <Button onClick={handleNewCode} variant="outline">
+          <Button disabled={isPending} onClick={handleNewCode} variant="outline">
             New code
             <RefreshCcw className="size-4 ml-2" />
           </Button>
@@ -80,5 +93,6 @@ export const InviteModel = ({
         </div>
       </DialogContent>
     </Dialog>
+    </>
   );
 };

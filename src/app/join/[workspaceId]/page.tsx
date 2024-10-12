@@ -1,13 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import Image from "next/image";
 import Link from "next/link";
 import VerificationInput from "react-verification-input";
 
-const JoinPage = () => {
 
-    
+
+const JoinPage = () => {
+    const workspaceId = useWorkspaceId
+
+    // const {} = useGetWorkspace()
+
+
   return (
     <div className="h-full  flex flex-col gap-y-8 items-center justify-center bg-white p-8 rounded-lg shadow-md">
       <Image src="/lupleg.svg" width={60} height={60} alt="Lupleg Logo" />

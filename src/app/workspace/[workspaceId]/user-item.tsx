@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 
 const UserItemVariants = cva(
-    "flex items-center gap-1.5 justify-start font-normal h-7 px-[18px] text-sm overflow-hidden",
+    "flex items-center gap-1.5 justify-start font-normal h-7 px-4 text-sm overflow-hidden",
     {
       variants: {
         variant: {
@@ -23,9 +26,23 @@ interface UserItemProps {
   id: Id<"users">;
   label?: string;
   image?: string;
-  variant?: string;
+  variant?: VariantProps<typeof UserItemVariants>["variant"];
 }
 
-export const UserItem = ({ id, label, image, variant }: UserItemProps) => {
-  return <Button></Button>;
+export const UserItem = ({ 
+  id, 
+  label = "Member", 
+  image, 
+  variant 
+}: UserItemProps) => {
+  const workspaceId = useWorkspaceId();
+  return <Button
+  variant="transparent"
+  className={cn(UserItemVariants({ variant: variant }))}
+  size="sm"
+  asChild
+  >
+  <Link href={`/workspace/${workspaceId}/member/${id}`}>
+  </Link>
+  </Button>;
 };

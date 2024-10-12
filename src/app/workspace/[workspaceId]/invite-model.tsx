@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useNewJoinCode } from "@/features/workspaces/api/use-new-join-code";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
-import { CopyIcon } from "lucide-react";
+import { CopyIcon, RefreshCcw } from "lucide-react";
 import { toast } from "sonner";
 
 interface InviteModelProps {
@@ -25,6 +27,8 @@ export const InviteModel = ({
   joinCode,
 }: InviteModelProps) => {
   const workspaceId = useWorkspaceId();
+  const { mutate, isPending } = useNewJoinCode();
+
   const handleCopy = () => {
     const inviteLink = `${window.location.origin}/join/${workspaceId}`;
 
@@ -50,6 +54,15 @@ export const InviteModel = ({
             Copy link
             <CopyIcon className="size-4 ml-2" />
           </Button>
+        </div>
+        <div className="flex items-center justify-between w-full">
+          <Button onClick={() => {}} variant="outline">
+            New code
+            <RefreshCcw className="size-4 ml-2" />
+          </Button>
+          <DialogClose asChild>
+            <Button>Close</Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

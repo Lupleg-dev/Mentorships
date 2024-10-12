@@ -22,7 +22,7 @@ const UserItemVariants = cva(
 );
 
 interface UserItemProps {
-  id: Id<"users">;
+  id: Id<"members">;
   label?: string;
   image?: string;
   variant?: VariantProps<typeof UserItemVariants>["variant"];

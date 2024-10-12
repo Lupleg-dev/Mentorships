@@ -14,21 +14,26 @@ import { useState } from "react";
 export const CreateChannelModal = () => {
   const [open, setOpen] = useCreateChannelModal();
 
-const [name, setName] = useState("")
+  const [name, setName] = useState("");
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const  value  = e.target.value.replace(/\s+/g,"-").toLowerCase();
-    setName(value)
-}
+  const handleClose = () => {
+    setName("");
+    setOpen(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\s+/g, "-").toLowerCase();
+    setName(value);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create a new channel</DialogTitle>
         </DialogHeader>
         <form className="space-y-2">
-            <Input
+          <Input
             value={name}
             disabled={false}
             onChange={handleChange}
@@ -37,15 +42,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             minLength={3}
             maxLength={80}
             placeholder="e.g. LuplegDevOps"
-             />
-             <div className="flex justify-end">
-                <Button
-                disabled={false}
-                >
-                        Create
-                </Button>
-             </div>
-
+          />
+          <div className="flex justify-end">
+            <Button disabled={false}>Create</Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

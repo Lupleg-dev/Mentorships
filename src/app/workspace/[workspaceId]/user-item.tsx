@@ -6,21 +6,20 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
-
 const UserItemVariants = cva(
-    "flex items-center gap-1.5 justify-start font-normal h-7 px-4 text-sm overflow-hidden",
-    {
-      variants: {
-        variant: {
-          default: "text-[#f9edffcc]",
-          active: "text-[#481349] bg-white/90 hover:bg-white/90",
-        },
+  "flex items-center gap-1.5 justify-start font-normal h-7 px-4 text-sm overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "text-[#f9edffcc]",
+        active: "text-[#481349] bg-white/90 hover:bg-white/90",
       },
-      defaultVariants: {
-        variant: "default",
-      }
-    }
-  );
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
 interface UserItemProps {
   id: Id<"users">;
@@ -29,20 +28,29 @@ interface UserItemProps {
   variant?: VariantProps<typeof UserItemVariants>["variant"];
 }
 
-export const UserItem = ({ 
-  id, 
-  label = "Member", 
-  image, 
-  variant 
+export const UserItem = ({
+  id,
+  label = "Member",
+  image,
+  variant,
 }: UserItemProps) => {
   const workspaceId = useWorkspaceId();
-  return <Button
-  variant="transparent"
-  className={cn(UserItemVariants({ variant: variant }))}
-  size="sm"
-  asChild
-  >
-  <Link href={`/workspace/${workspaceId}/member/${id}`}>
-  </Link>
-  </Button>;
+  const avatarFallback = label.charAt(0).toLowerCase();
+  return (
+    <Button
+      variant="transparent"
+      className={cn(UserItemVariants({ variant: variant }))}
+      size="sm"
+      asChild
+    >
+      <Link href={`/workspace/${workspaceId}/member/${id}`}>
+        <Avatar className="size-5 rounded-md mr-1">
+          <AvatarImage className="rounded-md " src={image} />
+          <AvatarFallback className="rounded-md ">
+            {avatarFallback}
+          </AvatarFallback>
+        </Avatar>
+      </Link>
+    </Button>
+  );
 };

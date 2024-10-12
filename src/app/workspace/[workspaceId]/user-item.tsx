@@ -50,6 +50,7 @@ export const UserItem = ({
             {avatarFallback}
           </AvatarFallback>
         </Avatar>
+        <span className="text-sm truncate">{label}</span>
       </Link>
     </Button>
   );

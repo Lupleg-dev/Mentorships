@@ -1,6 +1,6 @@
+import dynamic from "next/dynamic"
 
-import Editor from "@/components/editor"
-
+const Editor = dynamic(() => import("@/components/editor"), { ssr: false })
 
 export const ChatInput = () => {
     return (

@@ -1,10 +1,8 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useCreateChannelModal } from "../store/use-create-channel-modal";
 import { Input } from "@/components/ui/input";
@@ -40,11 +38,12 @@ export const CreateChannelModal = () => {
       { name, workspaceId },
       {
         onSuccess: (id) => {
+          toast.success("Channel successfully created.");
           router.push(`/workspace/${workspaceId}/channel/${id}`);
           handleClose();
         },
         onError: () => {
-          toast.error("Failed to create a channel."); 
+          toast.error("Failed to create channel."); 
         }
       }
     );

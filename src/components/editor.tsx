@@ -12,7 +12,7 @@ interface EditorProps {
   variant?: "create" | "update";
 }
 
-const Editor = ({ variant }: EditorProps) => {
+const Editor = ({ variant = "create" }: EditorProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,24 +61,29 @@ const Editor = ({ variant }: EditorProps) => {
               <Smile className="size-4" />
             </Button>
           </Hint>
-          <Hint label="Upload Image">
+          {variant === "create" && (
+            <Hint label="Upload Image">
+              <Button
+                disabled={false}
+                size="iconSm"
+                variant="ghost"
+                onClick={() => {}}
+              >
+                <ImageIcon className="size-4" />
+              </Button>
+            </Hint>
+          )}
+
+          {variant === "create" && (
             <Button
               disabled={false}
               size="iconSm"
-              variant="ghost"
               onClick={() => {}}
+              className="ml-auto bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
             >
-              <ImageIcon className="size-4" />
+              <MdSend className="size-4" />
             </Button>
-          </Hint>
-          <Button
-            disabled={false}
-            size="iconSm"
-            onClick={() => {}}
-            className="ml-auto bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
-          >
-            <MdSend className="size-4" />
-          </Button>
+          )}
         </div>
       </div>
       <div className="p-2 text-[10px] text-muted-foreground flex justify-end ">

@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -16,20 +15,51 @@ import { Input } from "@/components/ui/input";
 import { useUpdateChannel } from "@/features/channels/api/use-update-channel";
 import { useChannelId } from "@/hooks/use-channel-id";
 import { toast } from "sonner";
+import { useRemoveChannel } from "@/features/channels/api/use-remove-channel";
+import { useConfirm } from "@/hooks/use-confirm";
+import { useRouter } from "next/navigation";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 interface HeaderProps {
   title: string;
 }
 
 export const Header = ({ title }: HeaderProps) => {
-    const channelId = useChannelId();
+  const router = useRouter();
+  const workspaceId = useWorkspaceId();
+  const channelId = useChannelId();
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Delete this channel?",
+    "You are about to delete this channel. This action cannot be undone."
+  );
   const [value, setValue] = useState(title);
   const [editOpen, setEditOpen] = useState(false);
-  const { mutate: updateChannel, isPending: isUpdatingChannel } = useUpdateChannel();
-
+  const { mutate: updateChannel, isPending: isUpdatingChannel } =
+    useUpdateChannel();
+  const { mutate: removeChannel, isPending: isRemovingChannel } =
+    useRemoveChannel();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\s+/g, "-").toLowerCase();
     setValue(value);
+  };
+
+  const handleDelete = async () => {
+    const ok = await confirm();
+
+    if (!ok) return;
+
+    removeChannel(
+      { id: channelId },
+      {
+        onSuccess: () => {
+          toast.success("Channel successfully deleted.");
+          router.push(`/workspace/${workspaceId}`);
+        },
+        onError: () => {
+          toast.error("Failed to delete channel.");
+        },
+      }
+    );
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,10 +76,11 @@ export const Header = ({ title }: HeaderProps) => {
         },
       }
     );
-  }
+  };
 
   return (
     <div className="bg-white border-b h-[49px] flex items-center px-4 overflow-hidden ">
+      <ConfirmDialog />
       <Dialog>
         <DialogTrigger asChild>
           <Button
@@ -104,7 +135,10 @@ export const Header = ({ title }: HeaderProps) => {
                 </form>
               </DialogContent>
             </Dialog>
-            <button className="flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg cursor-pointer border hover:bg-gray-50  text-rose-600 ">
+            <button
+              onClick={handleDelete}
+              className="flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg cursor-pointer border hover:bg-gray-50  text-rose-600 "
+            >
               <TrashIcon className="size-4" />
               <p className="text-sm font-semibold">Delete channel</p>
             </button>

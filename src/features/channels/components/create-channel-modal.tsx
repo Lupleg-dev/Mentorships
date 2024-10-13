@@ -12,8 +12,10 @@ import { Button } from "@/components/ui/button";
 import { use, useState } from "react";
 import { useCreateChannel } from "../api/use-create-channel";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
 
 export const CreateChannelModal = () => {
+  const router = useRouter();
   const [open, setOpen] = useCreateChannelModal();
 
   const workspaceId = useWorkspaceId();
@@ -37,7 +39,7 @@ export const CreateChannelModal = () => {
       { name, workspaceId },
       {
         onSuccess: (id) => {
-          // TODO: Redirect to the new channel
+          router.push(`/workspace/${workspaceId}/channel/${id}`);
           handleClose();
         },
       }

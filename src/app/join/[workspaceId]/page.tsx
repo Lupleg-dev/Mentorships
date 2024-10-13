@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 import { useGetWorkspaceInfo } from "@/features/workspaces/api/use-get-workspace-info";
 import { useJoin } from "@/features/workspaces/api/use-new-join";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 
 const JoinPage = () => {
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
 
   const { mutate, isPending } = useJoin();
@@ -21,6 +24,7 @@ const JoinPage = () => {
       { workspaceId, joinCode: value },
       {
         onSuccess: (id) => {
+          router.push(`/workspace/${id}`);
           toast.success("Workspace joined.");
         },
 
@@ -50,9 +54,10 @@ const JoinPage = () => {
           </p>
         </div>
         <VerificationInput
+          onComplete={handleComplete}
           length={6}
           classNames={{
-            container: "flex gap-x-2",
+            container: cn("flex gap-x-2", isPending && "opacity-50 cursor-not-allowed"),
             character:
               "uppercase h-auto rounded-md border border-gray-300 flex items-center justify-center text-lg font-medium text-gray-500",
             characterInactive: "bg-muted",

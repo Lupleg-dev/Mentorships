@@ -1,26 +1,50 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+import { useGetWorkspaceInfo } from "@/features/workspaces/api/use-get-workspace-info";
+import { useJoin } from "@/features/workspaces/api/use-new-join";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import VerificationInput from "react-verification-input";
-
-
+import { toast } from "sonner";
 
 const JoinPage = () => {
-    const workspaceId = useWorkspaceId
+  const workspaceId = useWorkspaceId();
 
-    // const {} = useGetWorkspace()
+  const { mutate, isPending } = useJoin();
+  const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId });
 
+  const handleComplete = (value: string) => {
+    mutate(
+      { workspaceId, joinCode: value },
+      {
+        onSuccess: (id) => {
+          toast.success("Workspace joined.");
+        },
+
+        onError: (error) => {
+          toast.error("Failed to join workspace.");
+        },
+      }
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <Loader className="size-6 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
 
   return (
     <div className="h-full  flex flex-col gap-y-8 items-center justify-center bg-white p-8 rounded-lg shadow-md">
       <Image src="/lupleg.svg" width={60} height={60} alt="Lupleg Logo" />
       <div className="flex flex-col gap-y-4 items-center justify-center max-w-md">
         <div className="flex flex-col gap-y-2 items-center justify-center">
-          <h1 className="text-2xl font-bold">Join workspace</h1>
+          <h1 className="text-2xl font-bold">Join {data?.name}</h1>
           <p className="text-md text-muted-foreground">
             Enter workspace code to join
           </p>

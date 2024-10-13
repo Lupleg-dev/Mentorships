@@ -136,6 +136,7 @@ export const Header = ({ title }: HeaderProps) => {
               </DialogContent>
             </Dialog>
             <button
+              disabled={isRemovingChannel}
               onClick={handleDelete}
               className="flex items-center gap-x-2 px-5 py-4 bg-white rounded-lg cursor-pointer border hover:bg-gray-50  text-rose-600 "
             >

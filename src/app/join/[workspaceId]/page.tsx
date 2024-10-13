@@ -9,6 +9,7 @@ import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 
@@ -18,6 +19,14 @@ const JoinPage = () => {
 
   const { mutate, isPending } = useJoin();
   const { data, isLoading } = useGetWorkspaceInfo({ id: workspaceId });
+
+  const isMember = useMemo(() => data?.isMember, [data?.isMember]);
+
+  useEffect(() => {
+    if (isMember) {
+      router.push(`/workspace/${workspaceId}`);
+    }
+  }, [isMember, router, workspaceId]);
 
   const handleComplete = (value: string) => {
     mutate(
@@ -57,7 +66,10 @@ const JoinPage = () => {
           onComplete={handleComplete}
           length={6}
           classNames={{
-            container: cn("flex gap-x-2", isPending && "opacity-50 cursor-not-allowed"),
+            container: cn(
+              "flex gap-x-2",
+              isPending && "opacity-50 cursor-not-allowed"
+            ),
             character:
               "uppercase h-auto rounded-md border border-gray-300 flex items-center justify-center text-lg font-medium text-gray-500",
             characterInactive: "bg-muted",

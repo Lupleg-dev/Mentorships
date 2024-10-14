@@ -8,11 +8,9 @@ import { ImageIcon, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hint } from "./hint";
 
-interface EditorProps {
-  variant?: "create" | "update";
-}
 
-const Editor = ({ variant = "create" }: EditorProps) => {
+
+const Editor = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -8,9 +8,11 @@ import { ImageIcon, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hint } from "./hint";
 
+interface EditorProps {
+  variant?: "create" | "update";
+}
 
-
-const Editor = () => {
+const Editor = ({ variant = "create" }: EditorProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,15 +53,37 @@ const Editor = () => {
           </Button>
           </Hint>
 
+          {variant === "create" && (
           <Hint label="Image">
           <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
             <ImageIcon className="size-4" />
           </Button>
           </Hint>
+          )}
 
+          {variant === "update" && (
+            <div className="ml-auto flex items-center gap-x-2 ">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {}}
+                disabled={false}
+              >Cancel</Button>
+              <Button
+              disabled={false}
+                onClick={() => {}}
+                size="sm"
+                className=" bg-[#007a5a] hover:bg-[#007a5a]/80 text-white  "
+              >Send</Button>
+
+            </div>
+          )}
+
+          {variant === "create" && (
           <Button disabled={false} onClick={() => {}} size="iconSm" className="ml-auto bg-[#007a5a] hover:bg-[#007a5a]/80 text-white  "  >
             <MdSend className="size-4" />
           </Button>
+          )}
 
         </div>
       </div>

@@ -41,20 +41,28 @@ const Editor = ({ variant = "create" }: EditorProps) => {
       <div className="flex flex-col border-slate-200 rounded-md overflow-hidden focus-within:border-slate-300 focus-within:shadow-sm transition bg-white">
         <div ref={containerRef} className="h-full ql-custom " />
         <div className="flex px-2 pb-2 z-[5]">
+          <Hint label="Hide formatting">
           <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
             <PiTextAa className="size-4" />
           </Button>
+          </Hint>
 
+          <Hint label="Emoji" >
           <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
             <Smile className="size-4" />
           </Button>
+          </Hint>
 
+          <Hint label="Image">
           <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
             <ImageIcon className="size-4" />
           </Button>
-          <Button >
+          </Hint>
+
+          <Button disabled={false} onClick={() => {}} size="iconSm" className="ml-auto bg-[#007a5a] hover:bg-[#007a5a]/80 text-white  "  >
             <MdSend className="size-4" />
           </Button>
+
         </div>
       </div>
     </div>

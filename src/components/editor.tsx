@@ -4,8 +4,8 @@ import { MdSend } from "react-icons/md";
 
 import "quill/dist/quill.snow.css";
 import { useEffect, useRef } from "react";
-import { Button } from "./ui/button";
 import { ImageIcon, Smile } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Hint } from "./hint";
 
 interface EditorProps {
@@ -61,6 +61,7 @@ const Editor = ({ variant = "create" }: EditorProps) => {
               <Smile className="size-4" />
             </Button>
           </Hint>
+
           {variant === "create" && (
             <Hint label="Upload Image">
               <Button
@@ -72,6 +73,29 @@ const Editor = ({ variant = "create" }: EditorProps) => {
                 <ImageIcon className="size-4" />
               </Button>
             </Hint>
+          )}
+
+          {/* TODO THESE NEEDS FIX */}
+
+          {variant === "update" && (
+            <div className="ml-auto flex items-center gap-x-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {}}
+                disabled={false}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {}}
+                disabled={false}
+                className=" bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
+              >
+                Save
+              </Button>
+            </div>
           )}
 
           {variant === "create" && (

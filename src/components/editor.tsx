@@ -39,81 +39,23 @@ const Editor = ({ variant = "create" }: EditorProps) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col border-slate-200 rounded-md overflow-hidden focus-within:border-slate-300 focus-within:shadow-sm transition bg-white">
-        <div ref={containerRef} className="h-full ql-custom" />
+        <div ref={containerRef} className="h-full ql-custom " />
         <div className="flex px-2 pb-2 z-[5]">
-          <Hint label="Hide formatting">
-            <Button
-              disabled={false}
-              size="iconSm"
-              variant="ghost"
-              onClick={() => {}}
-            >
-              <PiTextAa className="size-4" />
-            </Button>
-          </Hint>
-          <Hint label="Emoji">
-            <Button
-              disabled={false}
-              size="iconSm"
-              variant="ghost"
-              onClick={() => {}}
-            >
-              <Smile className="size-4" />
-            </Button>
-          </Hint>
+          <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
+            <PiTextAa className="size-4" />
+          </Button>
 
-          {variant === "create" && (
-            <Hint label="Upload Image">
-              <Button
-                disabled={false}
-                size="iconSm"
-                variant="ghost"
-                onClick={() => {}}
-              >
-                <ImageIcon className="size-4" />
-              </Button>
-            </Hint>
-          )}
+          <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
+            <Smile className="size-4" />
+          </Button>
 
-          {/* TODO THESE NEEDS FIX */}
-
-          {variant === "update" && (
-            <div className="ml-auto flex items-center gap-x-2">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {}}
-                disabled={false}
-              >
-                Cancel
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => {}}
-                disabled={false}
-                className=" bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
-              >
-                Save
-              </Button>
-            </div>
-          )}
-
-          {variant === "create" && (
-            <Button
-              disabled={false}
-              size="iconSm"
-              onClick={() => {}}
-              className="ml-auto bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
-            >
-              <MdSend className="size-4" />
-            </Button>
-          )}
+          <Button size="iconSm" variant="ghost" disabled={false} onClick={() => {}}>
+            <ImageIcon className="size-4" />
+          </Button>
+          <Button >
+            <MdSend className="size-4" />
+          </Button>
         </div>
-      </div>
-      <div className="p-2 text-[10px] text-muted-foreground flex justify-end ">
-        <p>
-          <strong>Shift + Return </strong> to add a new line
-        </p>
       </div>
     </div>
   );

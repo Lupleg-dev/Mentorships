@@ -41,7 +41,7 @@ const Editor = ({
   variant = "create",
 }: EditorProps) => {
   const [text, setText] = useState("");
-  const [isToolbarVisible, setToolbarVisible] = useState(false);
+  const [isToolbarVisible, setToolbarVisible] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const submitRef = useRef(onSubmit);

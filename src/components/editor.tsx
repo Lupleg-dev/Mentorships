@@ -3,7 +3,7 @@ import { PiTextAa } from "react-icons/pi";
 import { MdSend } from "react-icons/md";
 
 import "quill/dist/quill.snow.css";
-import { MutableRefObject, useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useLayoutEffect, useRef } from "react";
 import { ImageIcon, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hint } from "./hint";
@@ -32,7 +32,21 @@ const Editor = ({
   disabled = false,
   innerRef,
   variant = "create" }: EditorProps) => {
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const submitRef = useRef(onSubmit)
+  const placeholderRef = useRef(placeholder)
+  const quillRef = useRef<Quill | null>(null)
+  const defaultValueRef = useRef(defaultValue)
+  const disabledRef = useRef(disabled)
+
+  useLayoutEffect(() => {
+    submitRef.current = onSubmit;
+    placeholderRef.current = placeholder;
+    defaultValueRef.current = defaultValue;
+    disabledRef.current = disabled
+  })
+
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -44,6 +58,7 @@ const Editor = ({
 
     const options: QuillOptions = {
       theme: "snow",
+      placeholder: placeholderRef.current,
     };
 
     new Quill(editorContainer, options);

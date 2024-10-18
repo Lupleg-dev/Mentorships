@@ -10,6 +10,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
   } from "@/components/ui/tooltip"
+import { useState } from "react";
 
   
   interface EmojiPopoverProps {
@@ -25,9 +26,17 @@ export const EmojiPopover = ({
     onEmojiSelect,
 }: EmojiPopoverProps
 ) => {
+    const [ popoverOpen, setPopoverOpen ] = useState(false);
+    const [ tooltipOpen, setTooltipOpen ] = useState(false);
+
+
+
     return (
-        <div>
+        <TooltipProvider>
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen} >
             {children}
-        </div>
+
+            </Popover>
+        </TooltipProvider>
     )
 }

@@ -163,6 +163,7 @@ const Editor = ({
         {!!image && (
           <div className="p-2">
             <div className="relative size-[62px] flex items-center justify-center group/image">
+              <Hint label="Remove image" >
               <button
               onClick={() => {
                 setImage(null);
@@ -172,6 +173,7 @@ const Editor = ({
               >
                 <XIcon className="size-3.5" />
               </button>
+              </Hint>
               <Image
                 src={URL.createObjectURL(image)}
                 layout="fill"

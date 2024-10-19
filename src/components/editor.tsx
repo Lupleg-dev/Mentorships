@@ -1,7 +1,7 @@
 import Quill, { type QuillOptions } from "quill";
 import { PiTextAa } from "react-icons/pi";
 import { MdSend } from "react-icons/md";
-import Image from "next/image";
+import Image from 'next/image'
 
 import "quill/dist/quill.snow.css";
 import {
@@ -86,7 +86,20 @@ const Editor = ({
             enter: {
               key: "Enter",
               handler: () => {
-                // TODO Submit form
+                const text = quill.getText();
+                const addedImage = imageElementRef.current?.files?.[0] || null;
+
+                const isEmpty = !addedImage && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
+
+                if (isEmpty) return;
+
+                const body = JSON.stringify(quill.getContents());
+                submitRef.current?.({ body, image: addedImage });
+
+                
+
+
+
                 return;
               },
             },
@@ -147,7 +160,7 @@ const Editor = ({
     quill?.insertText(quill?.getSelection()?.index || 0, emoji.native);
   };
 
-  const isEmpty = text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
+  const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
 
   return (
     <div className="flex flex-col">
@@ -176,7 +189,9 @@ const Editor = ({
               </Hint>
               <Image
                 src={URL.createObjectURL(image)}
-                layout="fill"
+                // layout="fill"
+                width={62}
+                height={62}
                 className="rounded-xl overflow-hidden border object-cover"
                 alt="Uploaded"
                />
@@ -221,18 +236,23 @@ const Editor = ({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => {}}
+                onClick={onCancel}
                 disabled={disabled || isEmpty}
               >
                 Cancel
               </Button>
               <Button
                 disabled={disabled || isEmpty}
-                onClick={() => {}}
+                onClick={() => {
+                  onSubmit({
+                    body: JSON.stringify(quillRef.current?.getContents()),
+                    image,
+                  })
+                }}
                 size="sm"
                 className=" bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
               >
-                Send
+                Save
               </Button>
             </div>
           )}
@@ -240,7 +260,12 @@ const Editor = ({
           {variant === "create" && (
             <Button
               disabled={disabled || isEmpty}
-              onClick={() => {}}
+              onClick={() => {
+                onSubmit({
+                  body: JSON.stringify(quillRef.current?.getContents()),
+                  image,
+                })
+              }}
               size="iconSm"
               className={cn(
                 "ml-auto",

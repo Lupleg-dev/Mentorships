@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Hint } from "./hint";
 import { Delta, Op } from "quill/core";
 import { cn } from "@/lib/utils";
-import 
+import { EmojiPopover } from "./emoji-popover"
 
 
 type EditorValue = {

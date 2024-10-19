@@ -1,6 +1,7 @@
 import Quill, { type QuillOptions } from "quill";
 import { PiTextAa } from "react-icons/pi";
 import { MdSend } from "react-icons/md";
+import Image from "next/image";
 
 import "quill/dist/quill.snow.css";
 import {
@@ -171,6 +172,12 @@ const Editor = ({
               >
                 <XIcon className="size-3.5" />
               </button>
+              <Image
+                src={URL.createObjectURL(image)}
+                layout="fill"
+                className="rounded-xl overflow-hidden border object-cover"
+                alt="Uploaded"
+               />
             </div>
           </div>
         )}

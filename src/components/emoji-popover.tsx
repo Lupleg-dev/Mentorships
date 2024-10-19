@@ -11,3 +11,23 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+interface EmojiPopoverProps {
+  children: React.ReactNode;
+  hint?: string;
+  onEmojiSelect: (emoji: any) => void;
+}
+
+export const EmojiPopover = ({
+  children,
+  hint,
+  onEmojiSelect
+}: EmojiPopoverProps) => {
+  return (
+    <div>
+      {children}
+    </div>
+  )
+}
+
+
+
